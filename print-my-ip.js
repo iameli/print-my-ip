@@ -6,7 +6,13 @@ function handleRequest(request, response) {
 }
 
 var server = http.createServer(function(req, res) {
-  res.end(req.connection.remoteAddress);
+  var ret = 'Headers\n\n';
+  Object.keys(req.headers).forEach(function(name) {
+    ret += name + ': ' + req.headers[name] + '\n';
+  });
+  ret += '\n';
+  ret += 'Remote Address: ' + req.connection.remoteAddress;
+  res.end(ret);
 });
 
 server.listen(3000, function(){
